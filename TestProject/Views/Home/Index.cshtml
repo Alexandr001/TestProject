@@ -1,4 +1,6 @@
-﻿@{
+﻿@Model TestProject.Models.User
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -7,4 +9,17 @@
     <p>Is my testing task)</p>
 </div>
 
-
+@if (Model == null)
+{
+    <form method="post">
+        <div>
+            <label>IdCompany</label>
+            <input type="number" name="idCompany" />
+        </div>
+    </form>
+} else
+{
+    <div>
+        @Model.Id
+    </div>
+}

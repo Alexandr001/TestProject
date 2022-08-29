@@ -41,19 +41,19 @@ namespace TestProject.DataAccessLayer.Implementations
             }
         }
 
-        public List<EmployeeModel> GetEmployeeByDepartment(int nameDepartment)
+        public IEnumerable<EmployeeModel> GetEmployeeByDepartment(int nameDepartment)
         {
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartamentName)} = @nameDepartment", new { nameDepartment }).ToList();
+                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartamentName)} = @nameDepartment", new { nameDepartment });
             }
         }
 
-        public List<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
+        public IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
         {
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.CompanyId)} = @idConpany", new { idCompany }).ToList();
+                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.CompanyId)} = @id", new { id = idCompany });
             }
         }
 

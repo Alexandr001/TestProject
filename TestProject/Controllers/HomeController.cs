@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using TestProject.BusinessLayer.Interfases;
 using TestProject.Models;
@@ -21,13 +22,12 @@ namespace TestProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(UserViewModel model)
+        public IActionResult Index(int idCompany)
         {
-            if (ModelState.IsValid)
-            {
-                
-            }
-            return View(Json(model));
+          
+                _logger.LogDebug(Json(idCompany).ToString());
+                return Json(_userBL.GetEmployeesByIdCompany(idCompany));
+          
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
