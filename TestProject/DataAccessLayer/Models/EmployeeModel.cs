@@ -11,6 +11,6 @@ namespace TestProject.DataAccessLayer.Models
         public string Phone { get; set; }
         public int CompanyId { get; set; }
         public string PassportNumber { get; set; }
-        public string DepartamentName { get; set; }
+        public string DepartmentName { get; set; }
     }
 }

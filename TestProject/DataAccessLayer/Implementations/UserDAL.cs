@@ -20,14 +20,14 @@ namespace TestProject.DataAccessLayer.Implementations
                     $"{nameof(EmployeeModel.Phone)}, " +
                     $"{nameof(EmployeeModel.CompanyId)}, " +
                     $"{nameof(EmployeeModel.PassportNumber)}, " +
-                    $"{nameof(EmployeeModel.DepartamentName)}) " +
+                    $"{nameof(EmployeeModel.DepartmentName)}) " +
                     $"VALUES" +
                     $"(@{nameof(EmployeeModel.Name)}, " +
                     $"@{nameof(EmployeeModel.Surname)}, " +
                     $"@{nameof(EmployeeModel.Phone)}, " +
                     $"@{nameof(EmployeeModel.CompanyId)}, " +
                     $"@{nameof(EmployeeModel.PassportNumber)}, " +
-                    $"@{nameof(EmployeeModel.DepartamentName)})", new { model }).FirstOrDefault();
+                    $"@{nameof(EmployeeModel.DepartmentName)})", new { model }).FirstOrDefault();
             }
             return employeeModel.Id;
         }
@@ -41,11 +41,11 @@ namespace TestProject.DataAccessLayer.Implementations
             }
         }
 
-        public IEnumerable<EmployeeModel> GetEmployeeByDepartment(int nameDepartment)
+        public IEnumerable<EmployeeModel> GetEmployeeByDepartment(string name)
         {
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartamentName)} = @nameDepartment", new { nameDepartment });
+                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartmentName)} = @nameDepartment", new { nameDepartment = name });
             }
         }
 

@@ -7,7 +7,7 @@ namespace TestProject.BusinessLayer.Interfases
         int CreateEmployee(EmployeeModel model);
         void DeleteEmployee(int id);
         IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany);
-        IEnumerable<EmployeeModel> GetEmployeeByDepartment(int idDepartment);
+        IEnumerable<EmployeeModel> GetEmployeeByDepartment(string departmentName);
         void UpdateEmployee(int id, params object[] param);
     }
 }
