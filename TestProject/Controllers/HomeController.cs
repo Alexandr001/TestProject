@@ -16,19 +16,30 @@ namespace TestProject.Controllers
             _logger = logger;
             _userBL = userBL;
         }
+       
+        #region Viev
         [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
+        [HttpGet]
+        public IActionResult Create() => View();
+        [HttpGet]
+        public IActionResult Delete() => View();
+        [HttpGet]
+        public IActionResult Receive() => View();
+        [HttpGet]
+        public IActionResult Change() => View();
+        #endregion
+
         [HttpPost]
-        public IActionResult Index(int idCompany)
+        public IActionResult Receive(int idCompany)
         {
           
                 _logger.LogDebug(Json(idCompany).ToString());
                 return Json(_userBL.GetEmployeesByIdCompany(idCompany));
           
         }
+       
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
