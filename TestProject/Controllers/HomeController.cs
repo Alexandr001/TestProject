@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using TestProject.BusinessLayer.Interfases;
 using TestProject.Models;
 
@@ -33,10 +37,13 @@ namespace TestProject.Controllers
         [HttpPost]
         public IActionResult Receive(int idCompany)
         {
-          
-                _logger.LogDebug(Json(idCompany).ToString());
-                return Json(_userBL.GetEmployeesByIdCompany(idCompany));
-          
+            return JsonCyrillic(_userBL.GetEmployeesByIdCompany(idCompany));
+        }
+
+        [HttpPost]
+        public IActionResult Index(string departmentName)
+        {
+            return JsonCyrillic(_userBL.GetEmployeeByDepartment(departmentName));
         }
        
 
@@ -45,6 +52,16 @@ namespace TestProject.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private JsonResult JsonCyrillic(object? data)
+        {
+            var options = new JsonSerializerOptions()
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true
+            };
+            return Json(data, options);
         }
     }
 }

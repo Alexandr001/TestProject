@@ -20,8 +20,8 @@ namespace TestProject.BusinessLayer.Implementations
         public void DeleteEmployee(int id) 
             => _userDAL.DeleteEmployee(id);
 
-        public IEnumerable<EmployeeModel> GetEmployeeByDepartment(int idDepartment)
-            => _userDAL.GetEmployeeByDepartment(idDepartment);
+        public IEnumerable<EmployeeModel> GetEmployeeByDepartment(string departmentName)
+            => _userDAL.GetEmployeeByDepartment(departmentName);
 
         public IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
             => _userDAL.GetEmployeesByIdCompany(idCompany);
