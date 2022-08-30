@@ -7,7 +7,17 @@
 
 <body>
     <div>
-        <label>Id Company: </label> <input type="number" name='id' /><br />
-        <label>Department Name: </label> <input type="number" name='id' /><br />
+        <form action="Receive/idCompany" method="post">
+            <label>Id Company: </label> <input type="number" name='idCompany' /><br />
+            <input type='submit' value='Send' /><br />
+        </form>
+        
+        <form action="Receive/departmentName" method="post">
+            <label>Department Name: </label> <input name='departmentName' /><br />
+            <input type='submit' value='Send' /><br />
+        </form>
+        
+        
+        
     </div>
 </body>

@@ -34,16 +34,16 @@ namespace TestProject.Controllers
         public IActionResult Change() => View();
         #endregion
 
-        [HttpPost]
+        [HttpPost("Home/Receive/idCompany")]
         public IActionResult Receive(int idCompany)
         {
             return JsonCyrillic(_userBL.GetEmployeesByIdCompany(idCompany));
         }
 
-        [HttpPost]
-        public IActionResult Index(string departmentName)
+        [HttpPost("Home/Receive/departmentName")]
+        public IActionResult Receive(string departmentName)
         {
-            return JsonCyrillic(_userBL.GetEmployeeByDepartment(departmentName));
+           return JsonCyrillic(_userBL.GetEmployeeByDepartment(departmentName));
         }
        
 
