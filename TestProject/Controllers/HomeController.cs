@@ -9,9 +9,9 @@ namespace TestProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IUserBL _userBL;
+        private readonly IEmployeeBL _userBL;
 
-        public HomeController(ILogger<HomeController> logger, IUserBL userBL)
+        public HomeController(ILogger<HomeController> logger, IEmployeeBL userBL)
         {
             _logger = logger;
             _userBL = userBL;
