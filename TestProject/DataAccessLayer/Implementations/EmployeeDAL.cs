@@ -32,8 +32,8 @@ namespace TestProject.DataAccessLayer.Implementations
         {
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                var sqlQuery = $"DELETE FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.Id)} = @id";
-                connection.Execute(sqlQuery, new { id });
+                const string SQL_QUERY = $"DELETE FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.Id)} = @id";
+                connection.Execute(SQL_QUERY, new { id });
             }
         }
 
@@ -41,7 +41,8 @@ namespace TestProject.DataAccessLayer.Implementations
         {
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartmentName)} = @nameDepartment", new { nameDepartment = name });
+                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartmentName)} = @nameDepartment",
+                                                        new { nameDepartment = name });
             }
         }
 
@@ -53,9 +54,12 @@ namespace TestProject.DataAccessLayer.Implementations
             }
         }
 
-        public void UpdateEmployee(int id, params object[] param)
+        public void UpdateEmployee(int id, EmployeeModel model)
         {
-            
+            using (SqlConnection connection = DBConnection.CreateConnection())
+            {
+                return 
+            }
         }
     }
 }

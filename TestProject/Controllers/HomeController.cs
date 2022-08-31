@@ -35,23 +35,32 @@ namespace TestProject.Controllers
         public IActionResult Change() => View();
         #endregion
 
+        #region Receive
+
         [HttpPost("Home/Receive/idCompany")]
-        public IActionResult Receive(int idCompany)
-        {
-            return JsonCyrillic(_userBL.GetEmployeesByIdCompany(idCompany));
-        }
+        public IActionResult Receive(int idCompany) => JsonCyrillic(_userBL.GetEmployeesByIdCompany(idCompany));
 
         [HttpPost("Home/Receive/departmentName")]
-        public IActionResult Receive(string departmentName)
-        {
-           return JsonCyrillic(_userBL.GetEmployeeByDepartment(departmentName));
-        }
+        public IActionResult Receive(string departmentName) => JsonCyrillic(_userBL.GetEmployeeByDepartment(departmentName));
+
+        #endregion
+
         [HttpPost("Home/Create/model")]
-        public IActionResult Create(EmployeeModel model)
+        public IActionResult Create(EmployeeModel model) => JsonCyrillic(_userBL.CreateEmployee(model));
+
+        [HttpPost("Home/Delete/model")]
+        public IActionResult Delete(int id)
         {
-            return JsonCyrillic(_userBL.CreateEmployee(model));
+            _userBL.DeleteEmployee(id);
+            return View();
         }
 
+        [HttpPost("Home/Change/model")]
+        public IActionResult Change(EmployeeModel model)
+        {
+            _userBL.UpdateEmployee(model.Id, model);
+            return View();
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

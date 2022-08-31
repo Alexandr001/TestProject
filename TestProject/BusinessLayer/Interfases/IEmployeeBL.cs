@@ -8,6 +8,6 @@ namespace TestProject.BusinessLayer.Interfases
         void DeleteEmployee(int id);
         IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany);
         IEnumerable<EmployeeModel> GetEmployeeByDepartment(string departmentName);
-        void UpdateEmployee(int id, params object[] param);
+        void UpdateEmployee(int id, EmployeeModel model);
     }
 }

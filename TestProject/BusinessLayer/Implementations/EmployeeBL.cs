@@ -26,7 +26,7 @@ namespace TestProject.BusinessLayer.Implementations
         public IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
             => _userDAL.GetEmployeesByIdCompany(idCompany);
 
-        public void UpdateEmployee(int id, params object[] param)
-            => _userDAL.UpdateEmployee(id, param);
+        public void UpdateEmployee(int id, EmployeeModel model)
+            => _userDAL.UpdateEmployee(id, model);
     }
 }
