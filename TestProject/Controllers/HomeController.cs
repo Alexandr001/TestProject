@@ -6,6 +6,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using TestProject.BusinessLayer.Interfases;
+using TestProject.DataAccessLayer.Models;
 using TestProject.Models;
 
 namespace TestProject.Controllers
@@ -45,7 +46,12 @@ namespace TestProject.Controllers
         {
            return JsonCyrillic(_userBL.GetEmployeeByDepartment(departmentName));
         }
-       
+        [HttpPost("Home/Create/model")]
+        public IActionResult Create(EmployeeModel model)
+        {
+            return JsonCyrillic(_userBL.CreateEmployee(model));
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

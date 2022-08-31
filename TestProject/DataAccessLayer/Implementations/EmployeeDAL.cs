@@ -10,26 +10,22 @@ namespace TestProject.DataAccessLayer.Implementations
     {
         public int CreateEmployee(EmployeeModel model)
         {
-            EmployeeModel? employeeModel;
+            int id;
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                employeeModel = connection.Query<EmployeeModel>(
+                id = connection.Query<int>(
                     $"INSERT INTO {DBTableNames.Employee} " +
-                    $"({nameof(EmployeeModel.Name)}, " +
-                    $"{nameof(EmployeeModel.Surname)}, " +
-                    $"{nameof(EmployeeModel.Phone)}, " +
-                    $"{nameof(EmployeeModel.CompanyId)}, " +
-                    $"{nameof(EmployeeModel.PassportNumber)}, " +
-                    $"{nameof(EmployeeModel.DepartmentName)}) " +
-                    $"VALUES" +
-                    $"(@{nameof(EmployeeModel.Name)}, " +
-                    $"@{nameof(EmployeeModel.Surname)}, " +
-                    $"@{nameof(EmployeeModel.Phone)}, " +
-                    $"@{nameof(EmployeeModel.CompanyId)}, " +
-                    $"@{nameof(EmployeeModel.PassportNumber)}, " +
-                    $"@{nameof(EmployeeModel.DepartmentName)})", new { model }).FirstOrDefault();
+                    "OUTPUT INSERTED.Id " +
+                    $"VALUES " +
+                    $"(@{nameof(model.Name)}, " +
+                    $"@{nameof(model.Surname)}, " +
+                    $"@{nameof(model.Phone)}, " +
+                    $"@{nameof(model.CompanyId)}, " +
+                    $"@{nameof(model.DepartmentName)}, " +
+                    $"@{nameof(model.PassportNumber)});",
+                    model).FirstOrDefault();
             }
-            return employeeModel.Id;
+            return id;
         }
 
         public void DeleteEmployee(int id)
