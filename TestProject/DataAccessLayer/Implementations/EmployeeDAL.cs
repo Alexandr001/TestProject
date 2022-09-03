@@ -12,21 +12,11 @@ namespace TestProject.DataAccessLayer.Implementations
     {
         public int CreateEmployee(EmployeeModel model)
         {
-            string SQL_QUERY = $"INSERT INTO {DBTableNames.Employee} OUTPUT INSERTED.Id VALUES {CreateValuesForMethodCreate(model)}";
+            string SQL_QUERY = $"INSERT INTO {DBTableNames.Employee} OUTPUT INSERTED.Id VALUES ({CreateValuesForMethodCreate(model)})";
             int id;
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                id = connection.Query<int>( SQL_QUERY, model).FirstOrDefault();
-                    /*$"INSERT INTO {DBTableNames.Employee} " +
-                    "OUTPUT INSERTED.Id " +
-                    $"VALUES " +
-                    $"(@{nameof(model.Name)}, " +
-                    $"@{nameof(model.Surname)}, " +
-                    $"@{nameof(model.Phone)}, " +
-                    $"@{nameof(model.CompanyId)}, " +
-                    $"@{nameof(model.DepartmentName)}, " +
-                    $"@{nameof(model.PassportNumber)});"*/
-                    
+                id = connection.Query<int>( SQL_QUERY, model).FirstOrDefault();   
             }
             return id;
         }
@@ -40,7 +30,7 @@ namespace TestProject.DataAccessLayer.Implementations
                 {
                     continue;
                 }
-                str += $" {nameof(property.Name)},";
+                str += $" @{property.Name},";
             }
             str = DeleteLastSymbol(str);
             return str;
@@ -75,7 +65,7 @@ namespace TestProject.DataAccessLayer.Implementations
 
         public void UpdateEmployee(int id, EmployeeModel model)
         {
-            string SQL_QUERU = $"UPDATE {DBTableNames.Employee} SET {FiltrationModel(model)} WHERE {nameof(model.Id)} = @id"
+            string SQL_QUERU = $"UPDATE {DBTableNames.Employee} SET {FiltrationModel(model)} WHERE {nameof(model.Id)} = @id";
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
                 connection.Execute(SQL_QUERU, new { id });
