@@ -45,21 +45,21 @@ namespace TestProject.Controllers
 
         #endregion
 
-        [HttpPost("Home/Create/model")]
+        [HttpPost("Home/Create")]
         public IActionResult Create(EmployeeModel model) => JsonCyrillic(_userBL.CreateEmployee(model));
 
-        [HttpPost("Home/Delete/model")]
+        [HttpPost("Home/Delete")]
         public IActionResult Delete(int id)
         {
             _userBL.DeleteEmployee(id);
             return View();
         }
 
-        [HttpPost("Home/Change/model")]
+        [HttpPost("Home/Change")]
         public IActionResult Change(EmployeeModel model)
         {
             _userBL.UpdateEmployee(model.Id, model);
-            return View();
+            return Index();
         }
 
 

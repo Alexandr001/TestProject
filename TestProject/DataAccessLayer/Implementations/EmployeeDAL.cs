@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Reflection;
 using System.Text;
 using TestProject.DataAccessLayer.Interfases;
 using TestProject.DataAccessLayer.Models;
@@ -65,34 +66,24 @@ namespace TestProject.DataAccessLayer.Implementations
             }
         }
 
+
         private string FiltrationModel(EmployeeModel model)
         {
             string str = "";
-            if (model.Name != null)
+            
+            foreach (var property in model.GetType().GetProperties())
             {
-                str += $"{nameof(model.Name)} = {model.Name},";
-            }
-            if (model.Surname != null)
-            {
-                str += $"{nameof(model.Surname)} = {model.Surname},";
-            }
-            if (model.Phone != null)
-            {
-                str += $"{nameof(model.Phone)} = {model.Phone},";
-            }
-            if (model.CompanyId != null)
-            {
-                str += $"{nameof(model.CompanyId)} = {model.CompanyId},";
-            }
-            if (model.DepartmentName != null)
-            {
-                str += $"{nameof(model.DepartmentName)} = {model.DepartmentName},";
-            }
-            if (model.PassportNumber != null)
-            {
-                str += $"{nameof(model.PassportNumber)} = {model.PassportNumber},";
+                if (property.Name == nameof(model.Id)) {
+                    continue;
+                }
+                if (property.GetValue(model) == null) {
+                    continue;
+                }
+
+                str += $" {property.Name} = '{property.GetValue(model)}',";
             }
             str = str.Remove(str.Length - 1);
+
             return str;
         }
     }
