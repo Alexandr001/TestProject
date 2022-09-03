@@ -1,30 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-<div class="text-center">
-    <h1 class="display-4">Change</h1>
-</div>
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Изменение пользователя</title>
+</head>
 
 <body>
-    <div>
-        <form form action="Change" method="post" name="model">
-            <label>Id: </label> <input type="number" name='id' required /><br />
+	<div class="text-center">
+		<h1 class="display-4">Change</h1>
+	</div>
 
-            <label>Name: </label> <input name='name' /><br />
+	<div>
+		<form form action="Change" method="post" name="model">
+			<label>Id: </label> <input type="number" name='id' required /><br />
 
-            <label>Surname: </label> <input name='surname' /><br />
+			<label>Name: </label> <input name='name' /><br />
 
-            <label>Phone: </label> <input name='phone' /><br />
+			<label>Surname: </label> <input name='surname' /><br />
 
-            <label>CompanyId: </label> <input type="number" name='companyId' /><br />
+			<label>Phone: </label> <input name='phone' /><br />
 
-            <label>DepartmentName: </label> <input name='departmentName' /><br />
+			<label>CompanyId: </label> <input type="number" name='companyId' /><br />
 
-            <label>PassportNumber: </label> <input name='passportNumber' /><br />
+			<label>DepartmentName: </label> <input name='departmentName' /><br />
 
-            <input type='submit' value='Send' /><br />
-        </form>
-        
+			<label>PassportNumber: </label> <input name='passportNumber' /><br />
 
-    </div>
+			<input type='submit' value='Send' /><br />
+		</form>
+	</div>
 </body>
+</html>

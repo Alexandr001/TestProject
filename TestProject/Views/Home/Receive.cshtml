@@ -1,23 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-<div class="text-center">
-    <h1 class="display-4">Receive</h1>
-</div>
-
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Поиск пользователя</title>
+</head>
 <body>
-    <div>
-        <form action="Receive/idCompany" method="post" name="company">
-            <label>Id Company: </label> <input type="number" name='idCompany' required /><br />
-            <input type='submit' value='Send' /><br />
-        </form>
+	<div class="text-center">
+		<h1 class="display-4">Receive</h1>
+	</div>
 
-        <form action="Receive/departmentName" method="post" name="department">
-            <label>Department Name: </label> <input name='departmentName' required /><br />
-            <input type='submit' value='Send' /><br />
-        </form>
-        
-        
-        
-    </div>
+	<div>
+		<form action="Receive/idCompany" method="post" name="company">
+			<label>Id Company: </label> <input type="number" name='idCompany' required /><br />
+			<input type='submit' value='Send' /><br />
+		</form>
+
+		<form action="Receive/departmentName" method="post" name="department">
+			<label>Department Name: </label> <input name='departmentName' required /><br />
+			<input type='submit' value='Send' /><br />
+		</form>
+	</div>
 </body>
+</html>

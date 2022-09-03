@@ -1,26 +1,31 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-<div class="text-center">
-    <h1 class="display-4">Create</h1>
-</div>
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Создать пользователя</title>
+</head>
 
 <body>
-    <div>
-        <form action="Create" method="post" name="model">
-            <label>Name: </label> <input name='name' required/><br />
+	<div class="text-center">
+		<h1 class="display-4">Create</h1>
+	</div>
 
-            <label>Surname: </label> <input name='surname' required/><br />
+	<div>
+		<form action="Create" method="post" name="model">
+			<label>Name: </label> <input name='name' required /><br />
 
-            <label>Phone: </label> <input name='phone' required /><br />
+			<label>Surname: </label> <input name='surname' required /><br />
 
-            <label>CompanyId: </label> <input type="number" name='companyId' required /><br />
+			<label>Phone: </label> <input name='phone' required /><br />
 
-            <label>DepartmentName: </label> <input name='departmentName' required /><br />
+			<label>CompanyId: </label> <input type="number" name='companyId' required /><br />
 
-            <label>PassportNumber: </label> <input type="number" name='passportNumber' required /><br />
+			<label>DepartmentName: </label> <input name='departmentName' required /><br />
 
-            <input type='submit' value='Send' /><br />
-        </form>
-    </div>
+			<label>PassportNumber: </label> <input type="number" name='passportNumber' required /><br />
+
+			<input type='submit' value='Send' /><br />
+		</form>
+	</div>
 </body>
+</html>
