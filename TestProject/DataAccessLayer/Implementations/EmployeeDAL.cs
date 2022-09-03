@@ -12,11 +12,12 @@ namespace TestProject.DataAccessLayer.Implementations
     {
         public int CreateEmployee(EmployeeModel model)
         {
+            string SQL_QUERY = $"INSERT INTO {DBTableNames.Employee} OUTPUT INSERTED.Id VALUES {CreateValuesForMethodCreate(model)}";
             int id;
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                id = connection.Query<int>(
-                    $"INSERT INTO {DBTableNames.Employee} " +
+                id = connection.Query<int>( SQL_QUERY, model).FirstOrDefault();
+                    /*$"INSERT INTO {DBTableNames.Employee} " +
                     "OUTPUT INSERTED.Id " +
                     $"VALUES " +
                     $"(@{nameof(model.Name)}, " +
@@ -24,67 +25,87 @@ namespace TestProject.DataAccessLayer.Implementations
                     $"@{nameof(model.Phone)}, " +
                     $"@{nameof(model.CompanyId)}, " +
                     $"@{nameof(model.DepartmentName)}, " +
-                    $"@{nameof(model.PassportNumber)});",
-                    model).FirstOrDefault();
+                    $"@{nameof(model.PassportNumber)});"*/
+                    
             }
             return id;
         }
 
+        private string CreateValuesForMethodCreate(EmployeeModel model)
+        {
+            string str = "";
+            foreach (var property in model.GetType().GetProperties())
+            {
+                if (property.Name == nameof(model.Id))
+                {
+                    continue;
+                }
+                str += $" {nameof(property.Name)},";
+            }
+            str = DeleteLastSymbol(str);
+            return str;
+        }
+
         public void DeleteEmployee(int id)
         {
+            const string SQL_QUERY = $"DELETE FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.Id)} = @id";
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                const string SQL_QUERY = $"DELETE FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.Id)} = @id";
                 connection.Execute(SQL_QUERY, new { id });
             }
         }
 
         public IEnumerable<EmployeeModel> GetEmployeeByDepartment(string name)
         {
+            const string SQL_QUERY = $"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartmentName)} = @nameDepartment";
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.DepartmentName)} = @nameDepartment",
-                                                        new { nameDepartment = name });
+                return connection.Query<EmployeeModel>(SQL_QUERY, new { nameDepartment = name });
             }
         }
 
         public IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
         {
+            const string SQL_QUERY = $"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.CompanyId)} = @id";
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                return connection.Query<EmployeeModel>($"SELECT * FROM {DBTableNames.Employee} WHERE {nameof(EmployeeModel.CompanyId)} = @id", new { id = idCompany });
+                return connection.Query<EmployeeModel>(SQL_QUERY, new { id = idCompany });
             }
         }
 
         public void UpdateEmployee(int id, EmployeeModel model)
         {
-
+            string SQL_QUERU = $"UPDATE {DBTableNames.Employee} SET {FiltrationModel(model)} WHERE {nameof(model.Id)} = @id"
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
-                string SQL_QUERU = $"UPDATE {DBTableNames.Employee} SET {FiltrationModel(model)} WHERE {nameof(model.Id)} = @id";
                 connection.Execute(SQL_QUERU, new { id });
             }
         }
-
-
         private string FiltrationModel(EmployeeModel model)
         {
             string str = "";
-            
+
             foreach (var property in model.GetType().GetProperties())
             {
-                if (property.Name == nameof(model.Id)) {
+                if (property.Name == nameof(model.Id))
+                {
                     continue;
                 }
-                if (property.GetValue(model) == null) {
+                if (property.GetValue(model) == null)
+                {
                     continue;
                 }
 
                 str += $" {property.Name} = '{property.GetValue(model)}',";
             }
-            str = str.Remove(str.Length - 1);
+            str = DeleteLastSymbol(str);
 
             return str;
+        }
+
+        private string DeleteLastSymbol(string str)
+        { 
+            return str.Remove(str.Length - 1); ;
         }
     }
 }
