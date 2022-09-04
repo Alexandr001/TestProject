@@ -16,6 +16,7 @@ namespace TestProject.DataAccessLayer.Implementations
             int id;
             using (SqlConnection connection = DBConnection.CreateConnection())
             {
+
                 id = connection.Query<int>( SQL_QUERY, model).FirstOrDefault();   
             }
             return id;
@@ -30,6 +31,13 @@ namespace TestProject.DataAccessLayer.Implementations
                 {
                     continue;
                 }
+                if (property.Name == nameof(model.DepartmentName))
+                {
+                    str += $" (SELECT [Name] FROM {DBTableNames.Department} WHERE {DBTableNames.Department}.[Name] = @{property.Name}),";
+                    continue;
+                }
+
+
                 str += $" @{property.Name},";
             }
             str = DeleteLastSymbol(str);
