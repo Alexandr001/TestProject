@@ -4,11 +4,21 @@ namespace TestProject.DataAccessLayer.Implementations
 {
     public static class DBConnection
     {
-        private const string CONNECT = @"Data Source=.\SQLEXPRESS; Initial Catalog=SmartwayTestDB; Integrated Security=true; TrustServerCertificate=True";
+
+        private const string ADDRESS = "SmartweyTestDB.mssql.somee.com";
+        private const string NAME = "SmartweyTestDB";
+        private const string LOGIN = "Alexandr001_SQLLogin_1";
+        private const string PASSWORD = "ppd8bthp76";
+        
 
         public static SqlConnection CreateConnection()
         {
-            return new SqlConnection(CONNECT);
+            const string CONNECTION =  $"Data Source={ADDRESS}; " +
+                                       $"Initial Catalog={NAME}; " +
+                                       $"User id={LOGIN}; " +
+                                       $"Password={PASSWORD}; " +
+                                       "TrustServerCertificate=True";
+            return new SqlConnection(CONNECTION);
         }
     }
 }
