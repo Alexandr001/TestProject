@@ -62,21 +62,34 @@ namespace TestProject.Controllers
         [HttpPost("Home/Create")]
         public IActionResult Create(EmployeeModel model)
         {
-            return Json(_userBl.CreateEmployee(model));
+            try {
+                return Json(_userBl.CreateEmployee(model));
+            } catch (Exception e) {
+                return Json(e);
+            }
+            
         }
 
         [HttpPost("Home/Delete")]
         public IActionResult Delete(int id)
         {
-            _userBl.DeleteEmployee(id);
-            return View();
+            try {
+                _userBl.DeleteEmployee(id);
+                return View();
+            } catch (Exception e) {
+                return Json(e);
+            }
         }
 
         [HttpPost("Home/Change")]
         public IActionResult Change(EmployeeModel model)
         {
-            _userBl.UpdateEmployee(model.Id, model);
-            return Index();
+            try {
+                _userBl.UpdateEmployee(model.Id, model);
+                return Index();
+            } catch (Exception e) {
+                return Json(e);
+            }
         }
 
 
