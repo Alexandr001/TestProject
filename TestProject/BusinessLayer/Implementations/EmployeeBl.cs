@@ -4,29 +4,28 @@ using TestProject.DataAccessLayer.Models;
 
 namespace TestProject.BusinessLayer.Implementations
 {
-    public class EmployeeBL : IEmployeeBL
+    public class EmployeeBl : IEmployeeBl
     {
-        private readonly IEmployeeDAL _userDAL;
-
-        public EmployeeBL(IEmployeeDAL userDAL)
+        private readonly IEmployeeDal _userDal;
+        public EmployeeBl(IEmployeeDal userDal)
         {
-            _userDAL = userDAL;
+            _userDal = userDal;
         }
 
 
         public int CreateEmployee(EmployeeModel model) 
-            => _userDAL.CreateEmployee(model);
+            => _userDal.CreateEmployee(model);
 
         public void DeleteEmployee(int id) 
-            => _userDAL.DeleteEmployee(id);
+            => _userDal.DeleteEmployee(id);
 
         public IEnumerable<EmployeeModel> GetEmployeeByDepartment(string departmentName)
-            => _userDAL.GetEmployeeByDepartment(departmentName);
+            => _userDal.GetEmployeeByDepartment(departmentName);
 
         public IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
-            => _userDAL.GetEmployeesByIdCompany(idCompany);
+            => _userDal.GetEmployeesByIdCompany(idCompany);
 
         public void UpdateEmployee(int id, EmployeeModel model)
-            => _userDAL.UpdateEmployee(id, model);
+            => _userDal.UpdateEmployee(id, model);
     }
 }

@@ -1,13 +1,13 @@
 ﻿using TestProject.DataAccessLayer.Models;
 
-namespace TestProject.DataAccessLayer.Interfases
+namespace TestProject.BusinessLayer.Interfases
 {
-    public interface IEmployeeDAL
+    public interface IEmployeeBl
     {
         int CreateEmployee(EmployeeModel model);
         void DeleteEmployee(int id);
         IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany);
-        IEnumerable<EmployeeModel> GetEmployeeByDepartment(string nameDepartment);
+        IEnumerable<EmployeeModel> GetEmployeeByDepartment(string departmentName);
         void UpdateEmployee(int id, EmployeeModel model);
     }
 }

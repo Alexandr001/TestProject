@@ -14,12 +14,12 @@ namespace TestProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IEmployeeBL _userBL;
+        private readonly IEmployeeBl _userBl;
 
-        public HomeController(ILogger<HomeController> logger, IEmployeeBL userBL)
+        public HomeController(ILogger<HomeController> logger, IEmployeeBl userBl)
         {
             _logger = logger;
-            _userBL = userBL;
+            _userBl = userBl;
         }
        
         #region Viev
@@ -38,27 +38,27 @@ namespace TestProject.Controllers
         #region Receive
 
         [HttpPost("Home/Receive/idCompany")]
-        public IActionResult Receive(int idCompany) => JsonCyrillic(_userBL.GetEmployeesByIdCompany(idCompany));
+        public IActionResult Receive(int idCompany) => JsonCyrillic(_userBl.GetEmployeesByIdCompany(idCompany));
 
         [HttpPost("Home/Receive/departmentName")]
-        public IActionResult Receive(string departmentName) => JsonCyrillic(_userBL.GetEmployeeByDepartment(departmentName));
+        public IActionResult Receive(string departmentName) => JsonCyrillic(_userBl.GetEmployeeByDepartment(departmentName));
 
         #endregion
 
         [HttpPost("Home/Create")]
-        public IActionResult Create(EmployeeModel model) => JsonCyrillic(_userBL.CreateEmployee(model));
+        public IActionResult Create(EmployeeModel model) => JsonCyrillic(_userBl.CreateEmployee(model));
 
         [HttpPost("Home/Delete")]
         public IActionResult Delete(int id)
         {
-            _userBL.DeleteEmployee(id);
+            _userBl.DeleteEmployee(id);
             return View();
         }
 
         [HttpPost("Home/Change")]
         public IActionResult Change(EmployeeModel model)
         {
-            _userBL.UpdateEmployee(model.Id, model);
+            _userBl.UpdateEmployee(model.Id, model);
             return Index();
         }
 
@@ -73,8 +73,8 @@ namespace TestProject.Controllers
         {
             var options = new JsonSerializerOptions()
             {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                WriteIndented = true
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                    WriteIndented = true
             };
             return Json(data, options);
         }

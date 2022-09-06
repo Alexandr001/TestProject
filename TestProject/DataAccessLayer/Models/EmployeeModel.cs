@@ -5,7 +5,6 @@ namespace TestProject.DataAccessLayer.Models
 {
     public class EmployeeModel
     {
-        [NotNull]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
