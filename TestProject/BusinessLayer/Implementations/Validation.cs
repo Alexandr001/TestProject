@@ -10,7 +10,14 @@ public static class Validation
 		ValidationContext context = new(model);
 		List<ValidationResult> results = new();
 		if (Validator.TryValidateObject(model, context, results, true) == false) {
-			throw new Exception(GetValidationError(results));
+			throw new ValidationException(GetValidationError(results));
+		}
+	}
+	public static void IdVerification(int id)
+	{
+		const int MIN_VALUE_ID = 1;
+		if (id < MIN_VALUE_ID) {
+			throw new Exception("The field Id must be between 1 and 2147483647.");
 		}
 	}
 	private static string GetValidationError(List<ValidationResult> results)

@@ -41,9 +41,10 @@ namespace TestProject.Controllers
         public IActionResult Receive(int idCompany)
         {
             try {
-                return Json(_userBl.GetEmployeesByIdCompany(idCompany));
+                IEnumerable<EmployeeModel> models = _userBl.GetEmployeesByIdCompany(idCompany);
+                return Json(models);
             } catch (Exception e) {
-                return Json(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -51,9 +52,10 @@ namespace TestProject.Controllers
         public IActionResult Receive(string departmentName)
         {
             try {
-                return Json(_userBl.GetEmployeeByDepartment(departmentName));
+                IEnumerable<EmployeeModel> models = _userBl.GetEmployeeByDepartment(departmentName);
+                return Json(models);
             } catch (Exception e) {
-                return Json(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -63,9 +65,10 @@ namespace TestProject.Controllers
         public IActionResult Create(EmployeeModel model)
         {
             try {
-                return Json(_userBl.CreateEmployee(model));
+                int idEmployee = _userBl.CreateEmployee(model);
+                return Json(idEmployee);
             } catch (Exception e) {
-                return Json(e);
+                return BadRequest(e.Message);
             }
             
         }
@@ -75,9 +78,9 @@ namespace TestProject.Controllers
         {
             try {
                 _userBl.DeleteEmployee(id);
-                return View();
+                return Index();
             } catch (Exception e) {
-                return Json(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -88,7 +91,7 @@ namespace TestProject.Controllers
                 _userBl.UpdateEmployee(model.Id, model);
                 return Index();
             } catch (Exception e) {
-                return Json(e);
+                return BadRequest(e.Message);
             }
         }
 

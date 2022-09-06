@@ -19,7 +19,7 @@ namespace TestProject.BusinessLayer.Implementations
 
         public void DeleteEmployee(int id)
         {
-            IdVerification(id);
+            Validation.IdVerification(id);
             _userDal.DeleteEmployee(id);
         }
 
@@ -30,22 +30,15 @@ namespace TestProject.BusinessLayer.Implementations
 
         public IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
         {
-            IdVerification(idCompany);
+            Validation.IdVerification(idCompany);
             return _userDal.GetEmployeesByIdCompany(idCompany);
         }
 
         public void UpdateEmployee(int id, EmployeeModel model)
         {
-            IdVerification(id);
+            Validation.IdVerification(id);
             Validation.ValidationModel(model);
             _userDal.UpdateEmployee(id, model);
-        }
-        private void IdVerification(int id)
-        {
-            const int MIN_VALUE_ID = 1;
-            if (id < MIN_VALUE_ID) {
-                throw new Exception("ID cannot be less than 1!");
-            }
         }
     }
 }
