@@ -38,15 +38,32 @@ namespace TestProject.Controllers
         #region Receive
 
         [HttpPost("Home/Receive/idCompany")]
-        public IActionResult Receive(int idCompany) => JsonCyrillic(_userBl.GetEmployeesByIdCompany(idCompany));
+        public IActionResult Receive(int idCompany)
+        {
+            try {
+                return Json(_userBl.GetEmployeesByIdCompany(idCompany));
+            } catch (Exception e) {
+                return Json(e);
+            }
+        }
 
         [HttpPost("Home/Receive/departmentName")]
-        public IActionResult Receive(string departmentName) => JsonCyrillic(_userBl.GetEmployeeByDepartment(departmentName));
+        public IActionResult Receive(string departmentName)
+        {
+            try {
+                return Json(_userBl.GetEmployeeByDepartment(departmentName));
+            } catch (Exception e) {
+                return Json(e);
+            }
+        }
 
         #endregion
 
         [HttpPost("Home/Create")]
-        public IActionResult Create(EmployeeModel model) => JsonCyrillic(_userBl.CreateEmployee(model));
+        public IActionResult Create(EmployeeModel model)
+        {
+            return Json(_userBl.CreateEmployee(model));
+        }
 
         [HttpPost("Home/Delete")]
         public IActionResult Delete(int id)
@@ -69,7 +86,7 @@ namespace TestProject.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private JsonResult JsonCyrillic(object? data)
+        /*private JsonResult JsonCyrillic(object? data)
         {
             var options = new JsonSerializerOptions()
             {
@@ -77,6 +94,6 @@ namespace TestProject.Controllers
                     WriteIndented = true
             };
             return Json(data, options);
-        }
+        }*/
     }
 }

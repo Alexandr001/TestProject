@@ -11,21 +11,41 @@ namespace TestProject.BusinessLayer.Implementations
         {
             _userDal = userDal;
         }
+        public int CreateEmployee(EmployeeModel model)
+        {
+            Validation.ValidationModel(model);
+            return _userDal.CreateEmployee(model);;
+        }
 
-
-        public int CreateEmployee(EmployeeModel model) 
-            => _userDal.CreateEmployee(model);
-
-        public void DeleteEmployee(int id) 
-            => _userDal.DeleteEmployee(id);
+        public void DeleteEmployee(int id)
+        {
+            IdVerification(id);
+            _userDal.DeleteEmployee(id);
+        }
 
         public IEnumerable<EmployeeModel> GetEmployeeByDepartment(string departmentName)
-            => _userDal.GetEmployeeByDepartment(departmentName);
+        {
+            return _userDal.GetEmployeeByDepartment(departmentName);
+        }
 
         public IEnumerable<EmployeeModel> GetEmployeesByIdCompany(int idCompany)
-            => _userDal.GetEmployeesByIdCompany(idCompany);
+        {
+            IdVerification(idCompany);
+            return _userDal.GetEmployeesByIdCompany(idCompany);
+        }
 
         public void UpdateEmployee(int id, EmployeeModel model)
-            => _userDal.UpdateEmployee(id, model);
+        {
+            IdVerification(id);
+            Validation.ValidationModel(model);
+            _userDal.UpdateEmployee(id, model);
+        }
+        private void IdVerification(int id)
+        {
+            const int MIN_VALUE_ID = 1;
+            if (id < MIN_VALUE_ID) {
+                throw new Exception("ID cannot be less than 1!");
+            }
+        }
     }
 }
